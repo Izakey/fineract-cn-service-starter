@@ -158,6 +158,7 @@ public class Microservice<T> extends ExternalResource {
 
   public void start() throws ArtifactResolutionException, IOException, InterruptedException {
 
+    Class<?> myMicroserviceClass = this.getClazz();
     final ArtifactResolver artifactResolver = new ArtifactResolver(
             IntegrationTestEnvironment.getArtifactoryDirectory());
 
@@ -174,7 +175,8 @@ public class Microservice<T> extends ExternalResource {
     processEnvironment.populateProcessEnvironment(processBuilder);
     processBuilder.inheritIO();
 
-    process = processBuilder.start();
+    MicroserviceRunner microserviceRunner = new MicroserviceRunner(myMicroserviceClass);
+    microserviceRunner.run();
   }
 
   public int kill() throws InterruptedException {
@@ -218,5 +220,17 @@ public class Microservice<T> extends ExternalResource {
     }
 
     return ret.toString();
+  }
+
+  public String getArtifactName() {
+    return artifactName;
+  }
+
+  public String getArtifactVersion() {
+    return artifactVersion;
+  }
+
+  public Class<T> getClazz() {
+    return clazz;
   }
 }

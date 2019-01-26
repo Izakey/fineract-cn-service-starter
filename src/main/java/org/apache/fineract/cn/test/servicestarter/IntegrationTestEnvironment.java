@@ -41,13 +41,13 @@ import static org.apache.fineract.cn.test.env.TestEnvironment.*;
 public class IntegrationTestEnvironment extends ExternalResource {
 
 
-  static String getJava()
+  public static String getJava()
   {
     final String javaHome = System.getProperty("java.home");
     return javaHome + File.separator + "bin" + File.separator + "java";
   }
 
-  static String getArtifactoryDirectory()
+  public static String getArtifactoryDirectory()
   {
     final String homeDirectory = System.getProperty("user.home");
     return homeDirectory + File.separator + ".m2" + File.separator + "repository";
